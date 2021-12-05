@@ -3,7 +3,7 @@ import { patch_currencyNames } from "./5e-custom-currency.js";
 function patch() {
     registerSettingsCurrencyNames();
     console.log("5e-custom-currency | New Currency Names/Abbreviations Registered");
-    
+
     registerSettingsExchangeRate();
     console.log("5e-custom-currency | New Exchange Rates Registered");
 
@@ -13,7 +13,7 @@ function patch() {
 export function registerSettings() {
     registerSettingsCurrencyNames();
     console.log("5e-custom-currency | Currency Names/Abbreviations Registered");
-    
+
     registerIndependentCurrencies();
     console.log("5e-custom-currency | Currency Dependence Registered");
     if (game.settings.get("5e-custom-currency", "depCur"))
@@ -126,7 +126,7 @@ function registerSettingsExchangeRate() {
     let epAlt = game.settings.get("5e-custom-currency", "epAlt");
     let gpAlt = game.settings.get("5e-custom-currency", "gpAlt");
     let ppAlt = game.settings.get("5e-custom-currency", "ppAlt");
-    
+
     game.settings.register("5e-custom-currency", "cp-sp", {
         name:  cpAlt + " to " + spAlt,
         scope: "world",
