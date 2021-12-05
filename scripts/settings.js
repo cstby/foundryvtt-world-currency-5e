@@ -1,21 +1,17 @@
+// Import
 import { patch_currencies } from "./5e-custom-currency.js";
 
 function patch() {
-    registerSettingsCurrencyNames();
-    console.log("5e-custom-currency | New Currency Names/Abbreviations Registered");
-
-    registerSettingsExchangeRate();
-    console.log("5e-custom-currency | New Exchange Rates Registered");
-
     patch_currencies();
+    console.log("5e-custom-currency | patch_currencies");
 }
 
 export function registerSettings() {
-    registerSettingsCurrencyNames();
-    console.log("5e-custom-currency | Currency Names/Abbreviations Registered");
-
     registerRemoveConverter();
     console.log("5e-custom-currency | Remove Converter Registered");
+
+    registerSettingsCurrencyNames();
+    console.log("5e-custom-currency | Currency Names/Abbreviations Registered");
 
     registerSettingsExchangeRate();
     console.log("5e-custom-currency | Exchange Rates Registered");
