@@ -92,11 +92,6 @@ function alterCharacterCurrency(html) {
     html.find('[class="denomination cp"]').text(altNames["cpAltAbrv"]);
 }
 
-function independentCurrency() {
-    CONFIG.Actor.documentClass.prototype.convertCurrency = function () {
-    };
-}
-
 function removeConvertCurrency(html) {
     html.find('[class="currency-item convert"]').remove();
     html.find('[data-action="convertCurrency"]').remove();
