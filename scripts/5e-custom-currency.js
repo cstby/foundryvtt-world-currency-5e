@@ -74,13 +74,33 @@ export function patch_currencyConversion() {
 
 export function patch_currencyNames() {
     let altNames = fetchParams();
+    let rates = get_conversion_rates();
 
     CONFIG.DND5E.currencies = {
-        "pp": altNames["ppAlt"],
-        "gp": altNames["gpAlt"],
-        "ep": altNames["epAlt"],
-        "sp": altNames["spAlt"],
-        "cp": altNames["cpAlt"]
+        pp: {
+            label: altNames["ppAlt"],
+            abbreviation: altNames["ppAltAbrv"]
+        },
+        gp: {
+            label: altNames["gpAlt"],
+            abbreviation: altNames["gpAltAbrv"],
+            conversion: {into: "pp", each: rates["gp_pp"]}
+        },
+        ep: {
+            label: altNames["epAlt"],
+            abbreviation: altNames["epAltAbrv"],
+            conversion: {into: "gp", each: rates["ep_gp"]}
+        },
+        sp: {
+            label: altNames["spAlt"],
+            abbreviation: altNames["spAltAbrv"],
+            conversion: {into: "ep", each: rates["sp_ep"]}
+        },
+        cp: {
+            label: altNames["cpAlt"],
+            abbreviation: altNames["cpAltAbrv"],
+            conversion: {into: "sp", each: rates["cp_sp"]}
+        }
     };
 }
 
@@ -130,7 +150,6 @@ Hooks.on("ready", function() {
 Hooks.on('renderTradeWindow', (sheet, html) => {
     alterTradeWindowCurrency(html);
 });
-
 
 Hooks.on('renderDialog', (sheet, html) => {
     if (game.modules.get('5e-custom-currency')?.active && sheet.title === 'Incoming Trade Request') {
