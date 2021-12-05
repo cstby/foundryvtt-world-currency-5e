@@ -11,8 +11,8 @@ Hooks.once("init", () => {
 Hooks.on("ready", function() {
     console.log("5e-custom-currency | Ready");
 
-    patch_currencyNames();
-    console.log("5e-custom-currency | patch_currencyNames");
+    patch_currencies();
+    console.log("5e-custom-currency | patch_currencies");
 });
 
 Hooks.on('renderActorSheet5eCharacter', (sheet, html) => {
@@ -50,7 +50,7 @@ function fetchParams() {
     }
 }
 
-export function patch_currencyNames() {
+export function patch_currencies() {
     let altNames = fetchParams();
     let rates = get_conversion_rates();
 
