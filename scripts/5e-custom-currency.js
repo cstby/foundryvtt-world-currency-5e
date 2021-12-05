@@ -16,7 +16,7 @@ Hooks.on("ready", function() {
 });
 
 Hooks.on('renderActorSheet5eCharacter', (sheet, html) => {
-    if(!game.settings.get("5e-custom-currency", "depCur")) {
+    if(game.settings.get("5e-custom-currency", "RemoveConverter")) {
         removeConvertCurrency(html);
     }
 

@@ -14,27 +14,23 @@ export function registerSettings() {
     registerSettingsCurrencyNames();
     console.log("5e-custom-currency | Currency Names/Abbreviations Registered");
 
-    registerIndependentCurrencies();
-    console.log("5e-custom-currency | Currency Dependence Registered");
-    if (game.settings.get("5e-custom-currency", "depCur"))
-    {
-        registerSettingsExchangeRate();
-        console.log("5e-custom-currency | Exchange Rates Registered");
-    }
+    registerRemoveConverter();
+    console.log("5e-custom-currency | Remove Converter Registered");
+
+    registerSettingsExchangeRate();
+    console.log("5e-custom-currency | Exchange Rates Registered");
 }
 
-function registerIndependentCurrencies() {
-    game.settings.register("5e-custom-currency", "depCur", {
-        name: "Dependent Currencies",
+function registerRemoveConverter() {
+    game.settings.register("5e-custom-currency", "RemoveConverter", {
+        name: "Remove Currency Converter",
+        hint: "Removes the currency converter on character sheets. The converter allows players to convert their currencies to the highest possible denomination.",
         scope: "world",
         config: true,
         default: true,
         type: Boolean,
-        onChange: () => {
-            patch();
-            window.location.reload();
-        }
-    })
+        onChange: () => patch()
+    });
 }
 
 function registerSettingsCurrencyNames() {
