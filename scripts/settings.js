@@ -1,4 +1,3 @@
-import { patch_currencyConversion } from "./5e-custom-currency.js";
 import { patch_currencyNames } from "./5e-custom-currency.js";
 
 function patch() {
@@ -8,7 +7,6 @@ function patch() {
     registerSettingsExchangeRate();
     console.log("5e-custom-currency | New Exchange Rates Registered");
 
-    patch_currencyConversion();
     patch_currencyNames();
 }
 

@@ -13,17 +13,6 @@ Hooks.on("ready", function() {
 
     patch_currencyNames();
     console.log("5e-custom-currency | patch_currencyNames");
-    
-    if (game.settings.get("5e-custom-currency", "depCur"))
-    {
-        patch_currencyConversion();
-        console.log("5e-custom-currency | patch_currencyConversion");
-    }
-    else {
-        console.log("5e-custom-currency | Using Independent Currencies");
-        independentCurrency();
-    }
-
 });
 
 Hooks.on('renderActorSheet5eCharacter', (sheet, html) => {
@@ -60,17 +49,6 @@ function fetchParams() {
 
     }
 }
-
-export function patch_currencyConversion() {
-    let rates = get_conversion_rates();
-
-    CONFIG.DND5E.currencyConversion = {
-        cp: {into: "sp", each: rates["cp_sp"]},
-        sp: {into: "ep", each: rates["sp_ep"]},
-        ep: {into: "gp", each: rates["ep_gp"]},
-        gp: {into: "pp", each: rates["gp_pp"]}
-    };
-};
 
 export function patch_currencyNames() {
     let altNames = fetchParams();
