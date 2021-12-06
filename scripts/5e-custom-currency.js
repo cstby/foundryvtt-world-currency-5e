@@ -1,41 +1,13 @@
-// Import
-import { registerSettings } from "./settings.js";
 
-// Base Hooks
-Hooks.once("init", () => {
-    console.log("5e-custom-currency | Init");
-
-    registerSettings();
-});
-
-Hooks.on("ready", function() {
-    console.log("5e-custom-currency | Ready");
-
-    patch_currencies();
-    console.log("5e-custom-currency | patch_currencies");
-});
-
-Hooks.on('renderActorSheet5eCharacter', (sheet, html) => {
-    if(game.settings.get("5e-custom-currency", "RemoveConverter")) {
-        removeConvertCurrency(html);
-    }
-
-    alterCharacterCurrency(html);
-});
 
 //  Base Functions
 
-function get_conversion_rates() {
+function getCurrencySettings() {
     return {
         cp_sp: game.settings.get("5e-custom-currency", "cp-sp"),
         sp_ep: game.settings.get("5e-custom-currency", "sp-ep"),
         ep_gp: game.settings.get("5e-custom-currency", "ep-gp"),
-        gp_pp: game.settings.get("5e-custom-currency", "gp-pp")
-    }
-}
-
-function fetchParams() {
-    return {
+        gp_pp: game.settings.get("5e-custom-currency", "gp-pp"),
         cpAlt: game.settings.get("5e-custom-currency", "cpAlt"),
         spAlt: game.settings.get("5e-custom-currency", "spAlt"),
         epAlt: game.settings.get("5e-custom-currency", "epAlt"),
@@ -46,44 +18,115 @@ function fetchParams() {
         epAltAbrv: game.settings.get("5e-custom-currency", "epAltAbrv"),
         gpAltAbrv: game.settings.get("5e-custom-currency", "gpAltAbrv"),
         ppAltAbrv: game.settings.get("5e-custom-currency", "ppAltAbrv"),
-
     }
 }
 
-export function patch_currencies() {
-    let altNames = fetchParams();
-    let rates = get_conversion_rates();
-
+function patchCurrencies() {
+    let currencySettings = getCurrencySettings()
+    
     CONFIG.DND5E.currencies = {
         pp: {
-            label: altNames["ppAlt"],
-            abbreviation: altNames["ppAltAbrv"]
+            label: currencySettings["ppAlt"],
+            abbreviation: currencySettings["ppAltAbrv"]
         },
         gp: {
-            label: altNames["gpAlt"],
-            abbreviation: altNames["gpAltAbrv"],
-            conversion: {into: "pp", each: rates["gp_pp"]}
+            label: currencySettings["gpAlt"],
+            abbreviation: currencySettings["gpAltAbrv"],
+            conversion: {into: "pp", each: currencySettings["gp_pp"]}
         },
         ep: {
-            label: altNames["epAlt"],
-            abbreviation: altNames["epAltAbrv"],
-            conversion: {into: "gp", each: rates["ep_gp"]}
+            label: currencySettings["epAlt"],
+            abbreviation: currencySettings["epAltAbrv"],
+            conversion: {into: "gp", each: currencySettings["ep_gp"]}
         },
         sp: {
-            label: altNames["spAlt"],
-            abbreviation: altNames["spAltAbrv"],
-            conversion: {into: "ep", each: rates["sp_ep"]}
+            label: currencySettings["spAlt"],
+            abbreviation: currencySettings["spAltAbrv"],
+            conversion: {into: "ep", each: currencySettings["sp_ep"]}
         },
         cp: {
-            label: altNames["cpAlt"],
-            abbreviation: altNames["cpAltAbrv"],
-            conversion: {into: "sp", each: rates["cp_sp"]}
+            label: currencySettings["cpAlt"],
+            abbreviation: currencySettings["cpAltAbrv"],
+            conversion: {into: "sp", each: currencySettings["cp_sp"]}
         }
     };
+
+    console.log("5e-custom-currency | Patched Currencies");
 }
 
+function registerSettingsConverter() {
+    game.settings.register("5e-custom-currency", "RemoveConverter", {
+        name: "Remove Currency Converter",
+        scope: "world",
+        config: true,
+        default: true,
+        type: Boolean,
+        onChange: () => patchCurrencies()
+    });
+}
+
+function registerCurrency(settingName, originalName, originalAbrv) {
+    game.settings.register("5e-custom-currency", settingName, {
+        name: originalName + " Alt Name",
+        scope: "world",
+        config: true,
+        default: originalName,
+        type: String,
+        onChange: () => patchCurrencies(),
+    });
+    game.settings.register("5e-custom-currency", settingName + "Abrv", {
+        name: originalName + "Alt Abbreviation",
+        scope: "world",
+        config: true,
+        default: originalAbrv,
+        type: String,
+        onChange: () => patchCurrencies(),
+    });
+}
+
+function registerSettingsCurrencyNames() {
+    registerCurrency("cpAlt", "Copper", "CP");
+    registerCurrency("spAlt", "Silver", "SP");
+    registerCurrency("epAlt", "Electrum", "EP");
+    registerCurrency("gpAlt", "Gold", "GP");
+    registerCurrency("ppAlt", "Platinum", "PP");
+}
+
+function registerExchangeRate(exchangeSetting, currencyOne, currencyTwo, defaultRate) {
+    game.settings.register("5e-custom-currency", exchangeSetting, {
+        name:  currencyOne + " to " + currencyTwo,
+        scope: "world",
+        config: true,
+        default: defaultRate,
+        type: Number,
+        onChange: () => patchCurrencies(),
+    });
+}
+
+function registerSettingsExchangeRates() {
+    let cpAlt = game.settings.get("5e-custom-currency", "cpAlt");
+    let spAlt = game.settings.get("5e-custom-currency", "spAlt");
+    let epAlt = game.settings.get("5e-custom-currency", "epAlt");
+    let gpAlt = game.settings.get("5e-custom-currency", "gpAlt");
+    let ppAlt = game.settings.get("5e-custom-currency", "ppAlt");
+    
+    registerExchangeRate("cp-sp", cpAlt, spAlt, 10);
+    registerExchangeRate("sp-ep", spAlt, epAlt, 5);
+    registerExchangeRate("ep-gp", epAlt, gpAlt, 2);
+    registerExchangeRate("gp-pp", gpAlt, ppAlt, 10);
+}
+
+function registerSettings() {
+    registerSettingsConverter();
+    registerSettingsCurrencyNames();
+    registerSettingsExchangeRates();
+    console.log("5e-custom-currency | Registered Settings");
+}
+
+// End Settings
+
 function alterCharacterCurrency(html) {
-    let altNames = fetchParams();
+    let altNames = getCurrencySettings();
 
     html.find('[class="denomination pp"]').text(altNames["ppAltAbrv"]);
     html.find('[class="denomination gp"]').text(altNames["gpAltAbrv"]);
@@ -100,14 +143,8 @@ function removeConvertCurrency(html) {
 
 // Compatibility: Tidy5E
 
-Hooks.on('renderActorSheet5eNPC', (sheet, html) => {
-    if (game.modules.get('tidy5e-sheet')?.active && sheet.constructor.name === 'Tidy5eNPC') {
-        alterCharacterCurrency(html);
-    }
-});
-
-Hooks.on("ready", function() {
-    let altNames = fetchParams();
+function alterTidy5e() {
+    let altNames = getCurrencySettings();
 
     if (game.modules.get('tidy5e-sheet')?.active) {
         console.log("5e-custom-currency | Altering TIDY5E");
@@ -117,21 +154,12 @@ Hooks.on("ready", function() {
         game.i18n['translations']['TIDY5E']["CurrencyAbbrSP"] = altNames["spAltAbrv"]
         game.i18n['translations']['TIDY5E']["CurrencyAbbrCP"] = altNames["cpAltAbrv"]
     }
-});
+}
 
 // Compatibility: Let's Trade 5E
-Hooks.on('renderTradeWindow', (sheet, html) => {
-    alterTradeWindowCurrency(html);
-});
-
-Hooks.on('renderDialog', (sheet, html) => {
-    if (game.modules.get('5e-custom-currency')?.active && sheet.title === 'Incoming Trade Request') {
-        alterTradeDialogCurrency(html);
-    }
-});
 
 function alterTradeDialogCurrency(html) {
-    let altNames = fetchParams();
+    let altNames = getCurrencySettings();
 
     const content = html.find('.dialog-content p');
     const match = content.text().match(/.+ is sending you [0-9]+((pp|gp|ep|sp|cp) \.).+/);
@@ -139,7 +167,7 @@ function alterTradeDialogCurrency(html) {
 }
 
 function alterTradeWindowCurrency(html) {
-    let altNames = fetchParams();
+    let altNames = getCurrencySettings();
 
     ['pp', 'gp', 'ep', 'sp', 'cp'].forEach(dndCurrency => {
         const container = html.find('[data-coin="' + dndCurrency + '"]').parent();
@@ -155,12 +183,9 @@ function alterTradeWindowCurrency(html) {
 }
 
 // Compatibility: Party Overview
-Hooks.on('renderPartyOverviewApp', (sheet, html) => {
-    alterPartyOverviewWindowCurrency(html);
-});
 
 function alterPartyOverviewWindowCurrency(html) {
-    let altNames = fetchParams();
+    let altNames = getCurrencySettings();
 
     const currencies = html.find('div[data-tab="currencies"] div.table-row.header div.text.icon')
     $(currencies[0]).text(altNames["ppAlt"])
@@ -170,3 +195,51 @@ function alterPartyOverviewWindowCurrency(html) {
     $(currencies[4]).text(altNames["cpAlt"])
     $(currencies[5]).text(`${altNames["gpAlt"]} (${game.i18n.localize('party-overview.TOTAL')})`)
 }
+
+// Base Hooks
+Hooks.once("init", () => {
+    console.log("5e-custom-currency | Init");
+
+    registerSettings();
+});
+
+Hooks.on("ready", function() {
+    console.log("5e-custom-currency | Ready");
+
+    patchCurrencies();
+
+    alterTidy5e();
+    console.log("5e-custom-currency | Alter Tidy5e");
+});
+
+Hooks.on('renderActorSheet5eCharacter', (sheet, html) => {
+    if(game.settings.get("5e-custom-currency", "RemoveConverter")) {
+        removeConvertCurrency(html);
+    }
+
+    alterCharacterCurrency(html);
+});
+
+Hooks.on('renderActorSheet5eNPC', (sheet, html) => {
+    if (game.modules.get('tidy5e-sheet')?.active && sheet.constructor.name === 'Tidy5eNPC') {
+        alterCharacterCurrency(html);
+        console.log("5e-custom-currency | Alter Tidy5eNPC");
+    }
+});
+
+Hooks.on('renderTradeWindow', (sheet, html) => {
+    alterTradeWindowCurrency(html);
+    console.log("5e-custom-currency | Alter Trade Window Currency");
+});
+
+Hooks.on('renderDialog', (sheet, html) => {
+    if (game.modules.get('5e-custom-currency')?.active && sheet.title === 'Incoming Trade Request') {
+        alterTradeDialogCurrency(html);
+        console.log("5e-custom-currency | Alter Trade Dialog Currency");
+    }
+});
+
+Hooks.on('renderPartyOverviewApp', (sheet, html) => {
+    alterPartyOverviewWindowCurrency(html);
+    console.log("5e-custom-currency | Alter Party Overview");
+});

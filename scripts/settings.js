@@ -1,8 +1,8 @@
 // Import
-import { patch_currencies } from "./5e-custom-currency.js";
+import { patch_currencies, getCurrencySettings } from "./5e-custom-currency.js";
 
 function patch() {
-    patch_currencies();
+    patch_currencies(getCurrencySettings);
     console.log("5e-custom-currency | patch_currencies");
 }
 
