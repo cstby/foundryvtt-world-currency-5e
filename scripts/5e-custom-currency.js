@@ -141,21 +141,6 @@ function removeConvertCurrency(html) {
     html.find('[title="Convert Currency"]').remove();
 }
 
-// Compatibility: Tidy5E
-
-function alterTidy5e() {
-    let altNames = getCurrencySettings();
-
-    if (game.modules.get('tidy5e-sheet')?.active) {
-        console.log("5e-custom-currency | Altering TIDY5E");
-        game.i18n['translations']['TIDY5E']["CurrencyAbbrPP"] = altNames["ppAltAbrv"]
-        game.i18n['translations']['TIDY5E']["CurrencyAbbrGP"] = altNames["gpAltAbrv"]
-        game.i18n['translations']['TIDY5E']["CurrencyAbbrEP"] = altNames["epAltAbrv"]
-        game.i18n['translations']['TIDY5E']["CurrencyAbbrSP"] = altNames["spAltAbrv"]
-        game.i18n['translations']['TIDY5E']["CurrencyAbbrCP"] = altNames["cpAltAbrv"]
-    }
-}
-
 // Compatibility: Let's Trade 5E
 
 function alterTradeDialogCurrency(html) {
@@ -207,9 +192,6 @@ Hooks.on("ready", function() {
     console.log("5e-custom-currency | Ready");
 
     patchCurrencies();
-
-    alterTidy5e();
-    console.log("5e-custom-currency | Alter Tidy5e");
 });
 
 Hooks.on('renderActorSheet5eCharacter', (sheet, html) => {
