@@ -7,7 +7,7 @@ import { patchCurrencies } from "./5e-custom-currency.js";
 /** Registers setting to remove the currency converter from character sheets. */
 function registerSettingsConverter() {
     game.settings.register("5e-custom-currency", "RemoveConverter", {
-        name: "Remove Currency Converter",
+        name: "Remove currency converter from character sheets.",
         scope: "world",
         config: true,
         default: true,
@@ -19,7 +19,7 @@ function registerSettingsConverter() {
 /** Helper function that registers a new currency. */
 function registerCurrency(settingName, originalName, originalAbrv) {
     game.settings.register("5e-custom-currency", settingName, {
-        name: originalName + " Alt Name",
+        name: originalName + " New Name",
         scope: "world",
         config: true,
         default: originalName,
@@ -27,7 +27,7 @@ function registerCurrency(settingName, originalName, originalAbrv) {
         onChange: () => patchCurrencies(),
     });
     game.settings.register("5e-custom-currency", settingName + "Abrv", {
-        name: originalName + "Alt Abbreviation",
+        name: originalName + " New Abbreviation",
         scope: "world",
         config: true,
         default: originalAbrv,
@@ -48,7 +48,7 @@ function registerSettingsCurrencyNames() {
 /** Helper function that registers an exchange rate. */
 function registerExchangeRate(exchangeSetting, currencyOne, currencyTwo, defaultRate) {
     game.settings.register("5e-custom-currency", exchangeSetting, {
-        name:  currencyOne + " to " + currencyTwo,
+        name: "How many " + currencyOne + " in a  " + currencyTwo + "?",
         scope: "world",
         config: true,
         default: defaultRate,
