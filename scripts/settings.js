@@ -18,6 +18,14 @@ function registerSettingsConverter() {
 
 /** Helper function that registers a new currency. */
 function registerCurrency(settingName, originalName, originalAbrv) {
+    game.settings.register("5e-custom-currency", settingName + "Remove", {
+        name: "Remove " +  originalName + "?",
+        scope: "world",
+        config: true,
+        default: false,
+        type: Boolean,
+        onChange: () => patchCurrencies(),
+    });
     game.settings.register("5e-custom-currency", settingName, {
         name: originalName + " New Name",
         scope: "world",
@@ -73,8 +81,8 @@ function registerSettingsExchangeRates() {
 
 /** Registers all settings for this module. */
 function registerSettings() {
-    registerSettingsConverter();
     registerSettingsCurrencyNames();
+    registerSettingsConverter();
     registerSettingsExchangeRates();
     console.log("5e-custom-currency | Registered Settings");
 }

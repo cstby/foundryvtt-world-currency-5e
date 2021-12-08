@@ -2,7 +2,7 @@
  * Registers hook callbacks.
  */
 
-import { patchCurrencies, removeConvertCurrency, } from "./5e-custom-currency.js";
+import * as core from "./5e-custom-currency.js";
 import { registerSettings } from "./settings.js";
 import * as compatibility from "./compatibility.js";
 
@@ -11,12 +11,27 @@ Hooks.once("init", () => {
 });
 
 Hooks.on("ready", function() {
-    patchCurrencies();
+    core.patchCurrencies();
 });
 
 Hooks.on('renderActorSheet5eCharacter', (sheet, html) => {
     if(game.settings.get("5e-custom-currency", "RemoveConverter")) {
-        removeConvertCurrency(html);
+        core.removeConvertCurrency(html);
+    }
+    if(game.settings.get("5e-custom-currency", "cpAltRemove")) {
+        core.removeCurrencyCp(html);
+    }
+    if(game.settings.get("5e-custom-currency", "spAltRemove")) {
+        core.removeCurrencySp(html);
+    }
+    if(game.settings.get("5e-custom-currency", "epAltRemove")) {
+        core.removeCurrencyEp(html);
+    }
+    if(game.settings.get("5e-custom-currency", "gpAltRemove")) {
+        core.removeCurrencyGp(html);
+    }
+    if(game.settings.get("5e-custom-currency", "ppAltRemove")) {
+        core.removeCurrencyPp(html);
     }
     // This is only necessary for tidy5e.
     compatibility.alterCharacterCurrency(html);

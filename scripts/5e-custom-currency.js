@@ -63,4 +63,41 @@ function removeConvertCurrency(html) {
     html.find('[title="Convert Currency"]').remove();
 }
 
-export { getCurrencySettings, patchCurrencies, removeConvertCurrency };
+function removeCurrencyCp(html) {
+    html.find('[class="currency-item cp"]').remove();
+    html.find('[class="denomination cp"]').remove();
+    html.find('[name="data.currency.cp"]').remove();
+}
+
+function removeCurrencySp(html) {
+    html.find('[class="currency-item sp"]').remove();
+    html.find('[class="denomination sp"]').remove();
+    html.find('[name="data.currency.sp"]').remove();
+}
+
+function removeCurrencyEp(html) {
+    html.find('[class="currency-item ep"]').remove();
+    html.find('[class="denomination ep"]').remove();
+    html.find('[name="data.currency.ep"]').remove();
+}
+
+function removeCurrencyGp(html) {
+    html.find('[class="currency-item gp"]').remove();
+    html.find('[class="denomination gp"]').remove();
+    html.find('[name="data.currency.gp"]').remove();
+}
+
+function removeCurrencyPp(html) {
+    html.find('[class="currency-item pp"]').remove();
+    html.find('[class="denomination pp"]').remove();
+    html.find('[name="data.currency.pp"]').remove();
+}
+
+export { getCurrencySettings,
+         patchCurrencies,
+         removeConvertCurrency,
+         removeCurrencyCp,
+         removeCurrencySp,
+         removeCurrencyEp,
+         removeCurrencyGp,
+         removeCurrencyPp,};
