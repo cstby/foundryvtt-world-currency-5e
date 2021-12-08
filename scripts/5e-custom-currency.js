@@ -1,7 +1,6 @@
+//  5e-custom-currency.js
 
-
-//  Base Functions
-
+/** Gets the currencies specified by the user and returns them as an object.*/
 function getCurrencySettings() {
     return {
         cp_sp: game.settings.get("5e-custom-currency", "cp-sp"),
@@ -21,9 +20,10 @@ function getCurrencySettings() {
     }
 }
 
+/** Writes the user-provided currencies to the CONFIG.DND5E object. */
 function patchCurrencies() {
     let currencySettings = getCurrencySettings()
-    
+
     CONFIG.DND5E.currencies = {
         pp: {
             label: currencySettings["ppAlt"],
@@ -54,6 +54,16 @@ function patchCurrencies() {
     console.log("5e-custom-currency | Patched Currencies");
 }
 
+/** Removes the currency converter from the given character sheet. */
+function removeConvertCurrency(html) {
+    html.find('[class="currency-item convert"]').remove();
+    html.find('[data-action="convertCurrency"]').remove();
+    html.find('[title="Convert Currency"]').remove();
+}
+
+// settings.js
+
+/** Registers setting to remove the currency converter from character sheets. */
 function registerSettingsConverter() {
     game.settings.register("5e-custom-currency", "RemoveConverter", {
         name: "Remove Currency Converter",
@@ -65,6 +75,7 @@ function registerSettingsConverter() {
     });
 }
 
+/** Helper function that registers a new currency. */
 function registerCurrency(settingName, originalName, originalAbrv) {
     game.settings.register("5e-custom-currency", settingName, {
         name: originalName + " Alt Name",
@@ -84,6 +95,7 @@ function registerCurrency(settingName, originalName, originalAbrv) {
     });
 }
 
+/** Registers settings to change all default currencies */
 function registerSettingsCurrencyNames() {
     registerCurrency("cpAlt", "Copper", "CP");
     registerCurrency("spAlt", "Silver", "SP");
@@ -92,6 +104,7 @@ function registerSettingsCurrencyNames() {
     registerCurrency("ppAlt", "Platinum", "PP");
 }
 
+/** Helper function that registers an exchange rate. */
 function registerExchangeRate(exchangeSetting, currencyOne, currencyTwo, defaultRate) {
     game.settings.register("5e-custom-currency", exchangeSetting, {
         name:  currencyOne + " to " + currencyTwo,
@@ -103,6 +116,7 @@ function registerExchangeRate(exchangeSetting, currencyOne, currencyTwo, default
     });
 }
 
+/** Registers settings to change all default exchange rates. */
 function registerSettingsExchangeRates() {
     let cpAlt = game.settings.get("5e-custom-currency", "cpAlt");
     let spAlt = game.settings.get("5e-custom-currency", "spAlt");
@@ -116,6 +130,7 @@ function registerSettingsExchangeRates() {
     registerExchangeRate("gp-pp", gpAlt, ppAlt, 10);
 }
 
+/** Registers all settings for this module. */
 function registerSettings() {
     registerSettingsConverter();
     registerSettingsCurrencyNames();
@@ -123,8 +138,9 @@ function registerSettings() {
     console.log("5e-custom-currency | Registered Settings");
 }
 
-// End Settings
+// Compatibility
 
+/** Alters currency names on the given character sheet. */
 function alterCharacterCurrency(html) {
     let altNames = getCurrencySettings();
 
@@ -135,14 +151,9 @@ function alterCharacterCurrency(html) {
     html.find('[class="denomination cp"]').text(altNames["cpAltAbrv"]);
 }
 
-function removeConvertCurrency(html) {
-    html.find('[class="currency-item convert"]').remove();
-    html.find('[data-action="convertCurrency"]').remove();
-    html.find('[title="Convert Currency"]').remove();
-}
-
 // Compatibility: Let's Trade 5E
 
+/** Alters currency abbreviations on trade dialog chat message. */
 function alterTradeDialogCurrency(html) {
     let altNames = getCurrencySettings();
 
@@ -151,6 +162,7 @@ function alterTradeDialogCurrency(html) {
     if (match) content.text(content.text().replace(match[1], ' ' + altNames[match[2] + "Alt"] + '.'));
 }
 
+/** Alters currency names and abbreviations in the trade window. */
 function alterTradeWindowCurrency(html) {
     let altNames = getCurrencySettings();
 
@@ -169,6 +181,7 @@ function alterTradeWindowCurrency(html) {
 
 // Compatibility: Party Overview
 
+/** Alters currency names in the party overview interface. */
 function alterPartyOverviewWindowCurrency(html) {
     let altNames = getCurrencySettings();
 
@@ -181,16 +194,12 @@ function alterPartyOverviewWindowCurrency(html) {
     $(currencies[5]).text(`${altNames["gpAlt"]} (${game.i18n.localize('party-overview.TOTAL')})`)
 }
 
-// Base Hooks
+// Main
 Hooks.once("init", () => {
-    console.log("5e-custom-currency | Init");
-
     registerSettings();
 });
 
 Hooks.on("ready", function() {
-    console.log("5e-custom-currency | Ready");
-
     patchCurrencies();
 });
 
@@ -198,30 +207,31 @@ Hooks.on('renderActorSheet5eCharacter', (sheet, html) => {
     if(game.settings.get("5e-custom-currency", "RemoveConverter")) {
         removeConvertCurrency(html);
     }
-
+    // This is only necessary for tidy5e. The base sheet pulls from the config.
     alterCharacterCurrency(html);
+    console.log("5e-custom-currency | Altered character sheet");
 });
 
 Hooks.on('renderActorSheet5eNPC', (sheet, html) => {
     if (game.modules.get('tidy5e-sheet')?.active && sheet.constructor.name === 'Tidy5eNPC') {
         alterCharacterCurrency(html);
-        console.log("5e-custom-currency | Alter Tidy5eNPC");
+        console.log("5e-custom-currency | Altered Tidy5eNPC");
     }
 });
 
 Hooks.on('renderTradeWindow', (sheet, html) => {
     alterTradeWindowCurrency(html);
-    console.log("5e-custom-currency | Alter Trade Window Currency");
+    console.log("5e-custom-currency | Altered Trade Window Currency");
 });
 
 Hooks.on('renderDialog', (sheet, html) => {
     if (game.modules.get('5e-custom-currency')?.active && sheet.title === 'Incoming Trade Request') {
         alterTradeDialogCurrency(html);
-        console.log("5e-custom-currency | Alter Trade Dialog Currency");
+        console.log("5e-custom-currency | Altered Trade Dialog Currency");
     }
 });
 
 Hooks.on('renderPartyOverviewApp', (sheet, html) => {
     alterPartyOverviewWindowCurrency(html);
-    console.log("5e-custom-currency | Alter Party Overview");
+    console.log("5e-custom-currency | Altered Party Overview");
 });
