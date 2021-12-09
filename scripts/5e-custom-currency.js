@@ -34,7 +34,15 @@ function patchCurrencies() {
         gp: {
             label: currencySettings["gpAlt"],
             abbreviation: currencySettings["gpAltAbrv"],
-            conversion: {into: "pp", each: currencySettings["gp_pp"]}
+            // Added explicit rates for easier conversion later. (see gpToStandard below.)
+            conversion: {into: "pp",
+                         each: currencySettings["gp_pp"],
+                         pp: 1 / currencySettings["gp_pp"],
+                         gp: 1,
+                         ep: currencySettings["ep_gp"],
+                         sp: currencySettings["ep_gp"] * currencySettings["sp_ep"],
+                         cp: currencySettings["ep_gp"] * currencySettings["sp_ep"] * currencySettings["cp_sp"]
+                        }
         },
         ep: {
             label: currencySettings["epAlt"],

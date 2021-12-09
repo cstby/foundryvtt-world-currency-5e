@@ -79,11 +79,30 @@ function registerSettingsExchangeRates() {
     registerExchangeRate("gp-pp", gpAlt, ppAlt, 10);
 }
 
+function registerSettingsStandard() {
+    game.settings.register("5e-custom-currency", "Standard", {
+        name: "Standard Currency",
+        scope: "world",
+        config: true,
+        default: "gp",
+        type: String,
+			  choices: {
+				    "pp": game.settings.get("5e-custom-currency", "ppAlt"),
+            "gp": game.settings.get("5e-custom-currency", "gpAlt"),
+            "ep": game.settings.get("5e-custom-currency", "epAlt"),
+            "sp": game.settings.get("5e-custom-currency", "spAlt"),
+            "cp": game.settings.get("5e-custom-currency", "cpAlt"),
+        },
+        onChange: () => patchCurrencies(),
+    });
+}
+
 /** Registers all settings for this module. */
 function registerSettings() {
     registerSettingsCurrencyNames();
     registerSettingsConverter();
     registerSettingsExchangeRates();
+    registerSettingsStandard();
     console.log("5e-custom-currency | Registered Settings");
 }
 
