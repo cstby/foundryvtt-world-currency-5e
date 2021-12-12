@@ -44,7 +44,7 @@ function registerCurrency(settingName, originalName, originalAbrv) {
     });
 }
 
-/** Registers settings to change all default currencies */
+/** Registers settings to change names of abbreviations of currencies */
 function registerSettingsCurrencyNames() {
     registerCurrency("cpAlt", "Copper", "CP");
     registerCurrency("spAlt", "Silver", "SP");
@@ -65,7 +65,7 @@ function registerExchangeRate(exchangeSetting, currencyOne, currencyTwo, default
     });
 }
 
-/** Registers settings to change all default exchange rates. */
+/** Registers settings to change all exchange rates. */
 function registerSettingsExchangeRates() {
     let cpAlt = game.settings.get("5e-custom-currency", "cpAlt");
     let spAlt = game.settings.get("5e-custom-currency", "spAlt");
@@ -79,6 +79,7 @@ function registerSettingsExchangeRates() {
     registerExchangeRate("gp-pp", gpAlt, ppAlt, 10);
 }
 
+/** Registers setting to set a standard currency */
 function registerSettingsStandard() {
     game.settings.register("5e-custom-currency", "Standard", {
         name: "Standard Currency",

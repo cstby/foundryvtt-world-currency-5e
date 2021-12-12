@@ -1,5 +1,5 @@
 /**
- * Core functions for patching currencies config.
+ * Core functions for patching currencies configuration.
  */
 
 /** Gets the currencies specified by the user and returns them as an object.*/
@@ -71,6 +71,7 @@ function removeConvertCurrency(html) {
     html.find('[title="Convert Currency"]').remove();
 }
 
+/** Removes specific currencies from character sheet */
 function removeCurrencyCp(html) {
     html.find('[class="currency-item cp"]').remove();
     html.find('[class="denomination cp"]').remove();
