@@ -82,3 +82,10 @@ Hooks.on('renderPartyOverviewApp', (sheet, html) => {
     compatibility.alterPartyOverviewWindowCurrency(html);
     console.log("5e-custom-currency | Altered Party Overview");
 });
+
+Hooks.on('renderActorSheet', (sheet, html, data) => {
+    $.each($('.item-price'), function(index, value) {
+        $(value).text(convert.formatCurrency(convert.gpToStandard(parseInt($(value).text()))));
+    });
+    console.log("5e-custom-currency | Altered Sheet");
+});
