@@ -46,7 +46,7 @@ Hooks.on('renderItemSheet', (sheet, html, data) => {
         html.find('[name="data.price"]').val(convert.gpToStandard(data.data.price));
     } else {
         html.find('[name="data.price"]').prop('disabled', true);
-        html.find('[name="data.price"]').val(convert.formatCurrency(gpToStandard(data.data.price)));
+        html.find('[name="data.price"]').val(convert.formatCurrency(convert.gpToStandard(data.data.price)));
     }
 });
 
