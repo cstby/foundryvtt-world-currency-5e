@@ -2,11 +2,11 @@
  * Settings that allow user to specify custom currencies and other options.
  */
 
-import { patchCurrencies } from "./5e-custom-currency.js";
+import { patchCurrencies } from "./world-currency-5e.js";
 
 /** Registers setting to remove the currency converter from character sheets. */
 function registerSettingsConverter() {
-    game.settings.register("5e-custom-currency", "RemoveConverter", {
+    game.settings.register("world-currency-5e", "RemoveConverter", {
         name: "Remove currency converter from character sheets.",
         scope: "world",
         config: true,
@@ -18,15 +18,15 @@ function registerSettingsConverter() {
 
 /** Helper function that registers a new currency. */
 function registerCurrency(settingName, originalName, originalAbrv) {
-    game.settings.register("5e-custom-currency", settingName + "Remove", {
-        name: "Remove " +  originalName + "?",
+    game.settings.register("world-currency-5e", settingName + "Remove", {
+        name: "Hide " +  originalName,
         scope: "world",
         config: true,
         default: false,
         type: Boolean,
         onChange: () => patchCurrencies(),
     });
-    game.settings.register("5e-custom-currency", settingName, {
+    game.settings.register("world-currency-5e", settingName, {
         name: originalName + " New Name",
         scope: "world",
         config: true,
@@ -34,7 +34,7 @@ function registerCurrency(settingName, originalName, originalAbrv) {
         type: String,
         onChange: () => patchCurrencies(),
     });
-    game.settings.register("5e-custom-currency", settingName + "Abrv", {
+    game.settings.register("world-currency-5e", settingName + "Abrv", {
         name: originalName + " New Abbreviation",
         scope: "world",
         config: true,
@@ -55,7 +55,7 @@ function registerSettingsCurrencyNames() {
 
 /** Helper function that registers an exchange rate. */
 function registerExchangeRate(exchangeSetting, currencyOne, currencyTwo, defaultRate) {
-    game.settings.register("5e-custom-currency", exchangeSetting, {
+    game.settings.register("world-currency-5e", exchangeSetting, {
         name: "How many " + currencyOne + " in a  " + currencyTwo + "?",
         scope: "world",
         config: true,
@@ -67,11 +67,11 @@ function registerExchangeRate(exchangeSetting, currencyOne, currencyTwo, default
 
 /** Registers settings to change all exchange rates. */
 function registerSettingsExchangeRates() {
-    let cpAlt = game.settings.get("5e-custom-currency", "cpAlt");
-    let spAlt = game.settings.get("5e-custom-currency", "spAlt");
-    let epAlt = game.settings.get("5e-custom-currency", "epAlt");
-    let gpAlt = game.settings.get("5e-custom-currency", "gpAlt");
-    let ppAlt = game.settings.get("5e-custom-currency", "ppAlt");
+    let cpAlt = game.settings.get("world-currency-5e", "cpAlt");
+    let spAlt = game.settings.get("world-currency-5e", "spAlt");
+    let epAlt = game.settings.get("world-currency-5e", "epAlt");
+    let gpAlt = game.settings.get("world-currency-5e", "gpAlt");
+    let ppAlt = game.settings.get("world-currency-5e", "ppAlt");
     
     registerExchangeRate("cp-sp", cpAlt, spAlt, 10);
     registerExchangeRate("sp-ep", spAlt, epAlt, 5);
@@ -81,18 +81,18 @@ function registerSettingsExchangeRates() {
 
 /** Registers setting to set a standard currency */
 function registerSettingsStandard() {
-    game.settings.register("5e-custom-currency", "Standard", {
+    game.settings.register("world-currency-5e", "Standard", {
         name: "Standard Currency",
         scope: "world",
         config: true,
         default: "gp",
         type: String,
 			  choices: {
-				    "pp": game.settings.get("5e-custom-currency", "ppAlt"),
-            "gp": game.settings.get("5e-custom-currency", "gpAlt"),
-            "ep": game.settings.get("5e-custom-currency", "epAlt"),
-            "sp": game.settings.get("5e-custom-currency", "spAlt"),
-            "cp": game.settings.get("5e-custom-currency", "cpAlt"),
+				    "pp": game.settings.get("world-currency-5e", "ppAlt"),
+            "gp": game.settings.get("world-currency-5e", "gpAlt"),
+            "ep": game.settings.get("world-currency-5e", "epAlt"),
+            "sp": game.settings.get("world-currency-5e", "spAlt"),
+            "cp": game.settings.get("world-currency-5e", "cpAlt"),
         },
         onChange: () => patchCurrencies(),
     });
@@ -104,7 +104,7 @@ function registerSettings() {
     registerSettingsConverter();
     registerSettingsExchangeRates();
     registerSettingsStandard();
-    console.log("5e-custom-currency | Registered Settings");
+    console.log("world-currency-5e | Registered Settings");
 }
 
 export { registerSettings };

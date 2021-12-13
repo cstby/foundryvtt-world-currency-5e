@@ -1,13 +1,13 @@
 {
-    "name": "5e-custom-currency",
-    "title": "5E Custom Currency",
-    "description": "Set custom currency names and exchange rates for D&D 5E default currency.",
-    "author": "ktrieun",
-    "version": "1.3.5",
+    "name": "world-currency-5e",
+    "title": "World Currency 5e",
+    "description": "Use currencies unique to your world in D&D 5E.",
+    "author": "cstby",
+    "version": "1.0.0",
     "library": "false",
     "manifestPlusVersion": "1.0.0",
-    "minimumCoreVersion": "0.6.8",
-    "compatibleCoreVersion": "0.8.8",
+    "minimumCoreVersion": "0.8.9",
+    "compatibleCoreVersion": "0.8.9",
     "dependencies": [],
     "conflicts": [],
     "esmodules": [
@@ -23,9 +23,9 @@
         }
     ],
     "system": "dnd5e",
-    "url": "https://github.com/ktrieun/FVTT-5e-custom-currency",
-    "manifest": "https://raw.githubusercontent.com/ktrieun/FVTT-5e-custom-currency/master/module.json",
-    "download": "https://github.com/ktrieun/FVTT-5e-custom-currency/archive/master.zip",
+    "url": "https://github.com/cstby/foundryvtt-world-currency-5e",
+    "manifest": "https://raw.githubusercontent.com/cstby/foundryvtt-world-currency-5e/master/module.json",
+    "download": "https://github.com/cstby/foundryvtt-world-currency-5e/archive/master.zip",
     "media": [
         {
             "type": "icon",

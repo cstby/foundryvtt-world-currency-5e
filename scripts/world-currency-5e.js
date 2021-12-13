@@ -5,20 +5,20 @@
 /** Gets the currencies specified by the user and returns them as an object.*/
 function getCurrencySettings() {
     return {
-        cp_sp: game.settings.get("5e-custom-currency", "cp-sp"),
-        sp_ep: game.settings.get("5e-custom-currency", "sp-ep"),
-        ep_gp: game.settings.get("5e-custom-currency", "ep-gp"),
-        gp_pp: game.settings.get("5e-custom-currency", "gp-pp"),
-        cpAlt: game.settings.get("5e-custom-currency", "cpAlt"),
-        spAlt: game.settings.get("5e-custom-currency", "spAlt"),
-        epAlt: game.settings.get("5e-custom-currency", "epAlt"),
-        gpAlt: game.settings.get("5e-custom-currency", "gpAlt"),
-        ppAlt: game.settings.get("5e-custom-currency", "ppAlt"),
-        cpAltAbrv: game.settings.get("5e-custom-currency", "cpAltAbrv"),
-        spAltAbrv: game.settings.get("5e-custom-currency", "spAltAbrv"),
-        epAltAbrv: game.settings.get("5e-custom-currency", "epAltAbrv"),
-        gpAltAbrv: game.settings.get("5e-custom-currency", "gpAltAbrv"),
-        ppAltAbrv: game.settings.get("5e-custom-currency", "ppAltAbrv"),
+        cp_sp: game.settings.get("world-currency-5e", "cp-sp"),
+        sp_ep: game.settings.get("world-currency-5e", "sp-ep"),
+        ep_gp: game.settings.get("world-currency-5e", "ep-gp"),
+        gp_pp: game.settings.get("world-currency-5e", "gp-pp"),
+        cpAlt: game.settings.get("world-currency-5e", "cpAlt"),
+        spAlt: game.settings.get("world-currency-5e", "spAlt"),
+        epAlt: game.settings.get("world-currency-5e", "epAlt"),
+        gpAlt: game.settings.get("world-currency-5e", "gpAlt"),
+        ppAlt: game.settings.get("world-currency-5e", "ppAlt"),
+        cpAltAbrv: game.settings.get("world-currency-5e", "cpAltAbrv"),
+        spAltAbrv: game.settings.get("world-currency-5e", "spAltAbrv"),
+        epAltAbrv: game.settings.get("world-currency-5e", "epAltAbrv"),
+        gpAltAbrv: game.settings.get("world-currency-5e", "gpAltAbrv"),
+        ppAltAbrv: game.settings.get("world-currency-5e", "ppAltAbrv"),
     }
 }
 
@@ -61,7 +61,7 @@ function patchCurrencies() {
         }
     };
 
-    console.log("5e-custom-currency | Patched Currencies");
+    console.log("world-currency-5e | Patched Currencies");
 }
 
 /** Removes the currency converter from the given character sheet. */

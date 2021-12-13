@@ -2,7 +2,7 @@
  * Compatibility with other modules.
  */
 
-import { getCurrencySettings } from "./5e-custom-currency.js";
+import { getCurrencySettings } from "./world-currency-5e.js";
 
 /** Alters currency names on the given character sheet. */
 function alterCharacterCurrency(html) {

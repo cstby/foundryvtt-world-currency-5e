@@ -1,13 +1,13 @@
-# 5E Custom Currency module for Foundry VTT
+# World Currency module for Foundry VTT
 
-Adjust currency name and conversion rates for 5th Edition D&D
+Use currencies custom to your world in D&D 5e.
 
 ## Installation
 
 1. Open Foundry's Setup screen
 2. Switch to the "Add-On Modules" tab
 3. Click "Install Module"
-4. Paste `https://raw.githubusercontent.com/ktrieun/FVTT-5e-custom-currency/master/module.json` into the "Manifest URL" field
+4. Paste `https://raw.githubusercontent.com/cstby/foundryvtt-world-currency-5e/master/module.json` into the "Manifest URL" field
 5. Click "Install"
 
 ## Notes
@@ -34,5 +34,3 @@ Currently supports any dnd5e character sheet that uses the default currency name
 * LootSheet5e
 * Pick-Up-Stix
 
-### Not Compatible if using Independent Currencies
-* Lazy Money
