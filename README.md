@@ -5,8 +5,8 @@
 </p>
 <p align="center">
 <a href="https://github.com/cstby/foundryvtt-world-currency-5e"><img src="https://img.shields.io/badge/Maintained%3F-yes-green.svg" alt="Maintenance"></a>
-<a href="https://github.com/cstby/foundryvtt-world-currency-5e"><img src="https://img.shields.io/github/release/cstby/foundryvtt-world-currency-5e" alt="Version"></a>
-<a href="https://foundryvtt.com/releases/"><img src="https://img.shields.io/endpoint?url=https://foundryshields.com/version?url=https://github.com/cstby/foundryvtt-world-currency-5e"/releases/latest/download/module.json"></a>
+<a href="https://github.com/cstby/foundryvtt-world-currency-5e"><img src="https://img.shields.io/github/v/release/cstby/foundryvtt-world-currency-5e.svg" alt="Version"></a>
+<a href="https://foundryvtt.com/releases/"><img src="https://img.shields.io/endpoint?url=https://foundryshields.com/version?url=https://raw.githubusercontent.com/cstby/foundryvtt-world-currency-5e/master/module.json"></a>
  <img alt="GitHub Issues" src="https://img.shields.io/github/issues/cstby/foundryvtt-world-currency-5e">
 </p>
 
