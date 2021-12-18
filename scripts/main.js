@@ -88,8 +88,8 @@ Hooks.on('renderPartyOverviewApp', (sheet, html) => {
     console.log("world-currency-5e | Altered Party Overview");
 });
 
-// Loot Sheet 5e & Merchant Sheet
-Hooks.on('renderActorSheet', (sheet, html, data) => {
+// Loot Sheet 5e
+Hooks.on('renderLootSheet5eNPC', (sheet, html, data) => {
     $.each($('.item-price'), function(index, value) {
         $(value).text(convert.formatCurrency(convert.gpToStandard(parseInt($(value).text()))));
     });

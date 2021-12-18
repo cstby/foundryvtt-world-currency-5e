@@ -51,6 +51,11 @@ Set whatever currency rates you need. Great for using the silver standard, which
 
 ![screenshot](./images/conversion-rates.png)
 
+### Merchant Sheet NPC Compatibility
+
+When using the [Merchant Sheet NPC](https://github.com/whelan/fvtt-merchant-sheet-npc) module (recommended), merchants prices will be converted to your standard currency. Merchants will only use the standard currency when buying and selling. (The standard currency can be changed on the fly.)
+
+![screenshot](./images/merchant-sheet.png)
 
 ## Examples
 
@@ -129,7 +134,7 @@ World Currencies 5e works by patching the currency names and rates set by the D&
 | [Party Overview](https://github.com/sdenec/tidy5e-sheet)                          | :heavy_check_mark: | Fully Compatible                                                                        |
 | [Let's Trade 5e](https://github.com/KageJittai/lets-trade-5e)                          | :heavy_check_mark: | Fully Compatible                                                         |
 | [Loot Sheet NPC 5e](https://github.com/jopeek/fvtt-loot-sheet-npc-5e)                          | :heavy_check_mark: | The loot sheet is fully compatible. Use Merchant Sheet NPC for merchants.                                                                        |
-| [Merchant Sheet NPC](https://github.com/whelan/fvtt-merchant-sheet-npc)                          | :warning: | Currently incompatible. (Merge request pending.)                                                                    |
+| [Merchant Sheet NPC](https://github.com/whelan/fvtt-merchant-sheet-npc)                          | :heavy_check_mark: | Fully compatible. Merchants will always use your standard currency.                                                                    |
 | [Lazy Money](https://github.com/whelan/fvtt-merchant-sheet-npc)                          | :warning: | Works, but it will convert to hidden currencies. If hiding currencies, only hide the lowest ones to maintain compatibility with Lazy Money.                                                    |
 
 
