@@ -61,11 +61,23 @@ Hooks.on('closeItemSheet5e', (sheet, html) => {
 
 // Compatibility with other modules:
 
-// Tidy 5e Sheet
+// Tidy 5e NPC Sheet
 Hooks.on('renderActorSheet5eNPC', (sheet, html) => {
     if (game.modules.get('tidy5e-sheet')?.active && sheet.constructor.name === 'Tidy5eNPC') {
         compatibility.alterCharacterCurrency(html);
         console.log("world-currency-5e | Altered Tidy5eNPC");
+    }
+});
+
+// Tidy 5e Vehicle Sheet
+Hooks.on('renderActorSheet5eVehicle', (sheet, html) => {
+    if (game.modules.get('tidy5e-sheet')?.active && sheet.constructor.name === 'Tidy5eVehicle') {
+        compatibility.alterCharacterCurrency(html);
+        console.log("world-currency-5e | Altered Tidy5eVehicle");
+    }
+
+    if(game.settings.get("world-currency-5e", "RemoveConverter")) {
+        core.removeConvertCurrency(html);
     }
 });
 
