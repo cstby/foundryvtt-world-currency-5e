@@ -51,7 +51,7 @@ Hooks.on('renderItemSheet', (sheet, html, data) => {
 });
 
 Hooks.on('closeItemSheet5e', (sheet, html) => {
-    if (game.user.isGM) {
+    if (game.user.isGM && sheet.options.editable) {
         (async function(sheet) {
             const document  = await fromUuid(sheet.object.uuid);
             document.update({ 'data.price': convert.standardToGp(sheet.object.data.data.price)});
