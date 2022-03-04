@@ -42,20 +42,10 @@ Hooks.on('renderActorSheet5eCharacter', (sheet, html) => {
 });
 
 Hooks.on('renderItemSheet', (sheet, html, data) => {
-    if (game.user.isGM) {
-        html.find('[name="data.price"]').val(convert.gpToStandard(data.data.price));
-    } else {
+    let standard = game.settings.get("world-currency-5e", "Standard");
+    if (!(game.user.isGM && standard == 'gp')) {
         html.find('[name="data.price"]').prop('disabled', true);
         html.find('[name="data.price"]').val(convert.formatCurrency(convert.gpToStandard(data.data.price)));
-    }
-});
-
-Hooks.on('closeItemSheet5e', (sheet, html) => {
-    if (game.user.isGM && sheet.options.editable) {
-        (async function(sheet) {
-            const document  = await fromUuid(sheet.object.uuid);
-            document.update({ 'data.price': convert.standardToGp(sheet.object.data.data.price)});
-        })(sheet);
     }
 });
 
