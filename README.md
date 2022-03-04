@@ -135,7 +135,14 @@ World Currencies 5e works by patching the currency names and rates set by the D&
 | [Let's Trade 5e](https://github.com/KageJittai/lets-trade-5e)                          | :heavy_check_mark: | Fully Compatible                                                         |
 | [Loot Sheet NPC 5e](https://github.com/jopeek/fvtt-loot-sheet-npc-5e)                          | :heavy_check_mark: | The loot sheet is fully compatible. Use Merchant Sheet NPC for merchants.                                                                        |
 | [Merchant Sheet NPC](https://github.com/whelan/fvtt-merchant-sheet-npc)                          | :heavy_check_mark: | Fully compatible. Merchants will always use your standard currency.                                                                    |
+| [Item Piles](https://github.com/fantasycalendar/FoundryVTT-ItemPiles)                          | :heavy_check_mark: | Fully compatible. Currencies can be hidden from within Item Piles settings.                                                              |
 | [Lazy Money](https://github.com/whelan/fvtt-merchant-sheet-npc)                          | :warning: | Works, but it will convert to hidden currencies. If hiding currencies, only hide the lowest ones to maintain compatibility with Lazy Money.                                                    |
+
+
+
+## Known Limitations
+
+- Item prices can only be edited when the standard currency is gp. This is because the DND5e system assumes all items are priced in gold.
 
 
 
