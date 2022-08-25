@@ -30,7 +30,7 @@ function patchCurrencies() {
     game.i18n.translations.DND5E.CurrencyGP = currencySettings["gpAlt"];
     game.i18n.translations.DND5E.CurrencyEP = currencySettings["epAlt"];
     game.i18n.translations.DND5E.CurrencySP = currencySettings["spAlt"];
-    game.i18n.translations.DND5E.CurrencyCP = currencySettings["ppAlt"];
+    game.i18n.translations.DND5E.CurrencyCP = currencySettings["cpAlt"];
 
     game.i18n.translations.DND5E.CurrencyAbbrPP = currencySettings["ppAltAbrv"];
     game.i18n.translations.DND5E.CurrencyAbbrGP = currencySettings["gpAltAbrv"];
