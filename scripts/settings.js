@@ -16,8 +16,8 @@ function registerSettingsConverter() {
     });
 }
 
-/** Helper function that registers a new currency. */
-function registerCurrency(settingName, originalName, originalAbrv) {
+/** Helper function that registers whether currency should be removed. */
+function registerRemove(settingName, originalName) {
     game.settings.register("world-currency-5e", settingName + "Remove", {
         name: "Hide " +  originalName,
         scope: "world",
@@ -26,10 +26,23 @@ function registerCurrency(settingName, originalName, originalAbrv) {
         type: Boolean,
         onChange: () => patchCurrencies(),
     });
+}
+
+/** Registers settings to remove currencies */
+function registerSettingsCurrencyRemove() {
+    registerRemove("cpAlt", "Copper");
+    registerRemove("spAlt", "Silver");
+    registerRemove("epAlt", "Electrum");
+    registerRemove("gpAlt", "Gold");
+    registerRemove("ppAlt", "Platinum");
+}
+
+/** Helper function that registers a new currency. */
+function registerCurrency(settingName, originalName, originalAbrv, isRemoved) {
     game.settings.register("world-currency-5e", settingName, {
         name: originalName + " New Name",
         scope: "world",
-        config: true,
+        config: !isRemoved,
         default: originalName,
         type: String,
         onChange: () => patchCurrencies(),
@@ -37,7 +50,7 @@ function registerCurrency(settingName, originalName, originalAbrv) {
     game.settings.register("world-currency-5e", settingName + "Abrv", {
         name: originalName + " New Abbreviation",
         scope: "world",
-        config: true,
+        config: !isRemoved,
         default: originalAbrv,
         type: String,
         onChange: () => patchCurrencies(),
@@ -46,20 +59,26 @@ function registerCurrency(settingName, originalName, originalAbrv) {
 
 /** Registers settings to change names of abbreviations of currencies */
 function registerSettingsCurrencyNames() {
-    registerCurrency("cpAlt", "Copper", "CP");
-    registerCurrency("spAlt", "Silver", "SP");
-    registerCurrency("epAlt", "Electrum", "EP");
-    registerCurrency("gpAlt", "Gold", "GP");
-    registerCurrency("ppAlt", "Platinum", "PP");
+    let cpAltRemove = game.settings.get("world-currency-5e", "cpAltRemove");
+    let spAltRemove = game.settings.get("world-currency-5e", "spAltRemove");
+    let epAltRemove = game.settings.get("world-currency-5e", "epAltRemove");
+    let gpAltRemove = game.settings.get("world-currency-5e", "gpAltRemove");
+    let ppAltRemove = game.settings.get("world-currency-5e", "ppAltRemove");
+
+    registerCurrency("cpAlt", "Copper", "CP", cpAltRemove);
+    registerCurrency("spAlt", "Silver", "SP", spAltRemove);
+    registerCurrency("epAlt", "Electrum", "EP", epAltRemove);
+    registerCurrency("gpAlt", "Gold", "GP", gpAltRemove);
+    registerCurrency("ppAlt", "Platinum", "PP", ppAltRemove);
 }
 
 /** Helper function that registers an exchange rate. */
-function registerExchangeRate(exchangeSetting, currencyOne, currencyTwo, defaultRate) {
+function registerExchangeRate(exchangeSetting, newName, isRemoved) {
     game.settings.register("world-currency-5e", exchangeSetting, {
-        name: "How many " + currencyOne + " in a  " + currencyTwo + "?",
+        name: "How many " + newName + " in a RAW GP?",
         scope: "world",
-        config: true,
-        default: defaultRate,
+        config: !isRemoved,
+        default: null,
         type: Number,
         onChange: () => patchCurrencies(),
     });
@@ -67,16 +86,23 @@ function registerExchangeRate(exchangeSetting, currencyOne, currencyTwo, default
 
 /** Registers settings to change all exchange rates. */
 function registerSettingsExchangeRates() {
+    let cpAltRemove = game.settings.get("world-currency-5e", "cpAltRemove");
+    let spAltRemove = game.settings.get("world-currency-5e", "spAltRemove");
+    let epAltRemove = game.settings.get("world-currency-5e", "epAltRemove");
+    let gpAltRemove = game.settings.get("world-currency-5e", "gpAltRemove");
+    let ppAltRemove = game.settings.get("world-currency-5e", "ppAltRemove");
+
     let cpAlt = game.settings.get("world-currency-5e", "cpAlt");
     let spAlt = game.settings.get("world-currency-5e", "spAlt");
     let epAlt = game.settings.get("world-currency-5e", "epAlt");
     let gpAlt = game.settings.get("world-currency-5e", "gpAlt");
     let ppAlt = game.settings.get("world-currency-5e", "ppAlt");
-    
-    registerExchangeRate("cp-sp", cpAlt, spAlt, 10);
-    registerExchangeRate("sp-ep", spAlt, epAlt, 5);
-    registerExchangeRate("ep-gp", epAlt, gpAlt, 2);
-    registerExchangeRate("gp-pp", gpAlt, ppAlt, 10);
+
+    registerExchangeRate("cpConvert", cpAlt, cpAltRemove);
+    registerExchangeRate("spConvert", spAlt, spAltRemove);
+    registerExchangeRate("epConvert", epAlt, epAltRemove);
+    registerExchangeRate("gpConvert", gpAlt, gpAltRemove);
+    registerExchangeRate("ppConvert", ppAlt, ppAltRemove);
 }
 
 /** Registers setting to set a standard currency */
@@ -87,8 +113,8 @@ function registerSettingsStandard() {
         config: true,
         default: "gp",
         type: String,
-			  choices: {
-				    "pp": game.settings.get("world-currency-5e", "ppAlt"),
+        choices: {
+            "pp": game.settings.get("world-currency-5e", "ppAlt"),
             "gp": game.settings.get("world-currency-5e", "gpAlt"),
             "ep": game.settings.get("world-currency-5e", "epAlt"),
             "sp": game.settings.get("world-currency-5e", "spAlt"),
@@ -100,6 +126,7 @@ function registerSettingsStandard() {
 
 /** Registers all settings for this module. */
 function registerSettings() {
+    registerSettingsCurrencyRemove();
     registerSettingsCurrencyNames();
     registerSettingsConverter();
     registerSettingsExchangeRates();

@@ -5,10 +5,16 @@
 /** Gets the currencies specified by the user and returns them as an object.*/
 function getCurrencySettings() {
     return {
-        cp_sp: game.settings.get("world-currency-5e", "cp-sp"),
-        sp_ep: game.settings.get("world-currency-5e", "sp-ep"),
-        ep_gp: game.settings.get("world-currency-5e", "ep-gp"),
-        gp_pp: game.settings.get("world-currency-5e", "gp-pp"),
+        cpConvert: game.settings.get("world-currency-5e", "cpConvert"),
+        spConvert: game.settings.get("world-currency-5e", "spConvert"),
+        epConvert: game.settings.get("world-currency-5e", "epConvert"),
+        gpConvert: game.settings.get("world-currency-5e", "gpConvert"),
+        ppConvert: game.settings.get("world-currency-5e", "ppConvert"),
+        cpAltRemove: game.settings.get("world-currency-5e", "cpAltRemove"),
+        spAltRemove: game.settings.get("world-currency-5e", "spAltRemove"),
+        epAltRemove: game.settings.get("world-currency-5e", "epAltRemove"),
+        gpAltRemove: game.settings.get("world-currency-5e", "gpAltRemove"),
+        ppAltRemove: game.settings.get("world-currency-5e", "ppAltRemove"),
         cpAlt: game.settings.get("world-currency-5e", "cpAlt"),
         spAlt: game.settings.get("world-currency-5e", "spAlt"),
         epAlt: game.settings.get("world-currency-5e", "epAlt"),
@@ -41,35 +47,29 @@ function patchCurrencies() {
     CONFIG.DND5E.currencies = {
         pp: {
             label: currencySettings["ppAlt"],
-            abbreviation: currencySettings["ppAltAbrv"]
+            abbreviation: currencySettings["ppAltAbrv"],
+            conversion: currencySettings["ppConvert"]
         },
         gp: {
             label: currencySettings["gpAlt"],
             abbreviation: currencySettings["gpAltAbrv"],
             // Added explicit rates for easier conversion later. (see gpToStandard below.)
-            conversion: {into: "pp",
-                         each: currencySettings["gp_pp"],
-                         pp: 1 / currencySettings["gp_pp"],
-                         gp: 1,
-                         ep: currencySettings["ep_gp"],
-                         sp: currencySettings["ep_gp"] * currencySettings["sp_ep"],
-                         cp: currencySettings["ep_gp"] * currencySettings["sp_ep"] * currencySettings["cp_sp"]
-                        }
+            conversion: currencySettings["gpConvert"]
         },
         ep: {
             label: currencySettings["epAlt"],
             abbreviation: currencySettings["epAltAbrv"],
-            conversion: {into: "gp", each: currencySettings["ep_gp"]}
+            conversion: currencySettings["epConvert"]
         },
         sp: {
             label: currencySettings["spAlt"],
             abbreviation: currencySettings["spAltAbrv"],
-            conversion: {into: "ep", each: currencySettings["sp_ep"]}
+            conversion: currencySettings["spConvert"]
         },
         cp: {
             label: currencySettings["cpAlt"],
             abbreviation: currencySettings["cpAltAbrv"],
-            conversion: {into: "sp", each: currencySettings["cp_sp"]}
+            conversion: currencySettings["cpConvert"]
         }
     };
 
