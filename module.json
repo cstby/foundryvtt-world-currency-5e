@@ -5,8 +5,8 @@
     "author": "cstby",
     "version": "1.4.1",
     "library": "false",
-    "minimumCoreVersion": "0.8.9",
-    "compatibleCoreVersion": "9",
+    "minimumCoreVersion": "10",
+    "compatibleCoreVersion": "10",
     "dependencies": [],
     "conflicts": [],
     "esmodules": [
