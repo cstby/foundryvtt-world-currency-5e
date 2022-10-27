@@ -41,6 +41,28 @@ Hooks.on('renderActorSheet5eCharacter', (sheet, html) => {
     console.log("world-currency-5e | Altered character sheet");
 });
 
+Hooks.on('renderActorSheet5eVehicle', (sheet, html) => {
+    if(game.settings.get("world-currency-5e", "RemoveConverter")) {
+        core.removeConvertCurrency(html);
+    }
+    if(game.settings.get("world-currency-5e", "cpAltRemove")) {
+        core.removeCurrencyCp(html);
+    }
+    if(game.settings.get("world-currency-5e", "spAltRemove")) {
+        core.removeCurrencySp(html);
+    }
+    if(game.settings.get("world-currency-5e", "epAltRemove")) {
+        core.removeCurrencyEp(html);
+    }
+    if(game.settings.get("world-currency-5e", "gpAltRemove")) {
+        core.removeCurrencyGp(html);
+    }
+    if(game.settings.get("world-currency-5e", "ppAltRemove")) {
+        core.removeCurrencyPp(html);
+    }
+    console.log("world-currency-5e | Altered vehicle sheet");
+});
+
 Hooks.on('renderItemSheet', (sheet, html, data) => {
     let standard = game.settings.get("world-currency-5e", "Standard");
     if (!(game.user.isGM && standard == 'gp')) {
