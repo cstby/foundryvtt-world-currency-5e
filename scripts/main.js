@@ -36,8 +36,6 @@ Hooks.on('renderActorSheet5eCharacter', (sheet, html) => {
     if(game.settings.get("world-currency-5e", "ppAltRemove")) {
         core.removeCurrencyPp(html);
     }
-    // This is only necessary for tidy5e.
-    compatibility.alterCharacterCurrency(html);
     console.log("world-currency-5e | Altered character sheet");
 });
 
@@ -73,26 +71,6 @@ Hooks.on('renderItemSheet', (sheet, html, data) => {
 });
 
 // Compatibility with other modules:
-
-// Tidy 5e NPC Sheet
-Hooks.on('renderActorSheet5eNPC', (sheet, html) => {
-    if (game.modules.get('tidy5e-sheet')?.active && sheet.constructor.name === 'Tidy5eNPC') {
-        compatibility.alterCharacterCurrency(html);
-        console.log("world-currency-5e | Altered Tidy5eNPC");
-    }
-});
-
-// Tidy 5e Vehicle Sheet
-Hooks.on('renderActorSheet5eVehicle', (sheet, html) => {
-    if (game.modules.get('tidy5e-sheet')?.active && sheet.constructor.name === 'Tidy5eVehicle') {
-        compatibility.alterCharacterCurrency(html);
-        console.log("world-currency-5e | Altered Tidy5eVehicle");
-    }
-
-    if(game.settings.get("world-currency-5e", "RemoveConverter")) {
-        core.removeConvertCurrency(html);
-    }
-});
 
 // Let's Trade 5e
 Hooks.on('renderTradeWindow', (sheet, html) => {
