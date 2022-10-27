@@ -66,8 +66,9 @@ Hooks.on('renderActorSheet5eVehicle', (sheet, html) => {
 Hooks.on('renderItemSheet', (sheet, html, data) => {
     let standard = game.settings.get("world-currency-5e", "Standard");
     if (!(game.user.isGM && standard == 'gp')) {
-        html.find('[name="data.price"]').prop('disabled', true);
-        html.find('[name="data.price"]').val(convert.formatCurrency(convert.gpToStandard(data.data.price)));
+        html.find('[name="system.price"]').prop('disabled', true);
+        html.find('[name="system.price"]').prop('type', "text");
+        html.find('[name="system.price"]').val(convert.formatCurrency(convert.gpToStandard(data.system.price)));
     }
 });
 
