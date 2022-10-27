@@ -87,31 +87,31 @@ function removeConvertCurrency(html) {
 function removeCurrencyCp(html) {
     html.find('[class="currency-item cp"]').remove();
     html.find('[class="denomination cp"]').remove();
-    html.find('[name="data.currency.cp"]').remove();
+    html.find('[name="system.currency.cp"]').remove();
 }
 
 function removeCurrencySp(html) {
     html.find('[class="currency-item sp"]').remove();
     html.find('[class="denomination sp"]').remove();
-    html.find('[name="data.currency.sp"]').remove();
+    html.find('[name="system.currency.sp"]').remove();
 }
 
 function removeCurrencyEp(html) {
     html.find('[class="currency-item ep"]').remove();
     html.find('[class="denomination ep"]').remove();
-    html.find('[name="data.currency.ep"]').remove();
+    html.find('[name="system.currency.ep"]').remove();
 }
 
 function removeCurrencyGp(html) {
     html.find('[class="currency-item gp"]').remove();
     html.find('[class="denomination gp"]').remove();
-    html.find('[name="data.currency.gp"]').remove();
+    html.find('[name="system.currency.gp"]').remove();
 }
 
 function removeCurrencyPp(html) {
     html.find('[class="currency-item pp"]').remove();
     html.find('[class="denomination pp"]').remove();
-    html.find('[name="data.currency.pp"]').remove();
+    html.find('[name="system.currency.pp"]').remove();
 }
 
 export { getCurrencySettings,
