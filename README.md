@@ -10,7 +10,6 @@
  <img alt="GitHub Issues" src="https://img.shields.io/github/issues/cstby/foundryvtt-world-currency-5e">
 </p>
 
-
 This [FoundryVTT](https://foundryvtt.com) module allows you to use your world's homebrew currencies in D&D 5th Edition.
 
 ## Installation
@@ -32,10 +31,9 @@ Hide currencies that you don't want to use. If your players get confused by plat
 
 ![screenshot](./images/hide-currency.png)
 
-
 ### Hide Converter
 
-If your currencies aren't meant to be interchangeable, you can hide the currency converter from the character sheets.
+If your currencies aren't meant to be interchangeable, you can hide the currency converter from the character sheets. (The converter is currently waiting on updates in the upstream DND5E system before it can work as expected.)
 
 ![screenshot](./images/hide-converter.png)
 
@@ -63,22 +61,17 @@ When using the [Merchant Sheet NPC](https://github.com/whelan/fvtt-merchant-shee
 
 #### Steps
 
-- Uncheck "Hide Converter" setting
-- Change the name and abbreviation of Electrum to "Silver" and "SP"
-- Change the name and abbreviation of Silver to "Copper" and "CP"
-- Check "Hide Copper" to true.
+- Check "Hide Electrum" to true.
+- Enter the correct conversion rates for copper, silver, gold, and platinum.
 
 #### Result
 
-Electrum will not appear anymore on character sheets. Using the currency converter and modules like Lazy Money will work as expected.
-
-
+Electrum will not appear anymore on character sheets.  Compatible currency converters will skip over electrum entirely.
 
 ### Silver Standard
 
 #### Steps
 
-- Uncheck "hide converter" setting
 - Rename platinum to gold
 - Rename gold to silver
 - Rename electrum to copper
@@ -89,8 +82,6 @@ Electrum will not appear anymore on character sheets. Using the currency convert
 #### Result
 
 All items will be denominated in silver instead of gold. (Eg. a backpack is now 2 sp instead of 2 gp.) One silver is worth 100 copper. A gold is worth 100 silver. Players will only see gold, silver, and copper on their character sheets. The converter will work as expected.
-
-
 
 ### One Fiat Currency
 
@@ -104,8 +95,6 @@ All items will be denominated in silver instead of gold. (Eg. a backpack is now 
 
 - Players will only have one currency box for Woolongs on their character sheets. A 2 gp backpack now appears as 20,000 ￦.
 
-  
-
 ### Fiat Currencies for different Kingdoms
 
 #### Steps
@@ -118,10 +107,6 @@ All items will be denominated in silver instead of gold. (Eg. a backpack is now 
 #### Result
 
 Only Dragons and Suns will be visible on the character sheets. A 2 gp backpack now costs 2 Dragons or 2 Suns. Players accumulate and spend these currencies independently. By default you have have fractions of currencies, so 2.31 Dragons would be tracked as expected.
-
-
-
-
 
 ## Compatibility
 
@@ -138,19 +123,13 @@ World Currencies 5e works by patching the currency names and rates set by the D&
 | [Item Piles](https://github.com/fantasycalendar/FoundryVTT-ItemPiles)                          | :heavy_check_mark: | Fully compatible. Currencies can be hidden from within Item Piles settings.                                                              |
 | [Lazy Money](https://github.com/whelan/fvtt-merchant-sheet-npc)                          | :warning: | Works, but it will convert to hidden currencies. If hiding currencies, only hide the lowest ones to maintain compatibility with Lazy Money.                                                    |
 
-
-
 ## Known Limitations
 
 - Item prices can only be edited when the standard currency is gp. This is because the DND5e system assumes all items are priced in gold.
 
-
-
 ## Contributing
 
 If you run into anything unexpected or have an idea for a new feature, please [submit an issue](https://github.com/cstby/world-currency-5e/issues). Merge requests are more than welcome.
-
-
 
 ## Acknowledgements
 
@@ -159,11 +138,8 @@ Many thanks to:
 - [ktrieun](https://github.com/ktrieun) for making the original exchange rates module from which this one is forked.
 - [League of Extraordinary FoundryVTT Developers](https://forums.forge-vtt.com/c/package-development/11) community for all their help and support.
 
-
-
 ## License
 
 This Foundry VTT module is licensed under [GNU GPLv3.0](https://www.gnu.org/licenses/gpl-3.0.en.html), supplemented by [Commons Clause](https://commonsclause.com/).
 
 This work is licensed under Foundry Virtual Tabletop [EULA - Limited License Agreement for module development from May 29, 2020.](https://foundryvtt.com/article/license/)
-
