@@ -129,7 +129,7 @@ World Currencies 5e works by patching the currency names and rates set by the D&
 
 ## Contributing
 
-If you run into anything unexpected or have an idea for a new feature, please [submit an issue](https://github.com/cstby/world-currency-5e/issues). Merge requests are more than welcome.
+If you run into anything unexpected or have an idea for a new feature, please [submit an issue](https://github.com/cstby/foundryvtt-world-currency-5e/issues). Merge requests are more than welcome.
 
 ## Acknowledgements
 
