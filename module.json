@@ -3,7 +3,7 @@
     "title": "World Currency 5e",
     "description": "Use currencies unique to your world in D&D 5E.",
     "authors": [{ "name": "cstby" }],
-    "version": "2.0.1",
+    "version": "2.0.2",
     "library": "false",
     "compatibility": {
         "minimum": "10",
