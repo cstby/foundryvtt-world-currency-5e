@@ -30,7 +30,7 @@ Hooks.on("renderActorSheet5eVehicle", (sheet, html) => {
 });
 
 Hooks.on("renderItemSheet", (sheet, html, data) => {
-    let standard = game.settings.get("world-currency-5e", "Standard");
+    let standard = game.settings.get(core.WORLD_CURRENCY_5E, "Standard");
     if (!(game.user.isGM && standard == "gp")) {
         html.find('[name="system.price"]').prop("disabled", true);
         html.find('[name="system.price"]').prop("type", "text");
@@ -56,7 +56,7 @@ Hooks.on("renderActorSheet5eVehicle", (sheet, html) => {
         console.log("world-currency-5e | Altered Tidy5eVehicle");
     }
 
-    if (game.settings.get("world-currency-5e", "RemoveConverter")) {
+    if (game.settings.get(core.WORLD_CURRENCY_5E, "RemoveConverter")) {
         core.removeConvertCurrency(html);
     }
 });
@@ -68,7 +68,7 @@ Hooks.on("renderTradeWindow", (sheet, html) => {
 });
 
 Hooks.on("renderDialog", (sheet, html) => {
-    if (game.modules.get("world-currency-5e")?.active && sheet.title === "Incoming Trade Request") {
+    if (game.modules.get(core.WORLD_CURRENCY_5E)?.active && sheet.title === "Incoming Trade Request") {
         compatibility.alterTradeDialogCurrency(html);
         console.log("world-currency-5e | Altered Trade Dialog Currency");
     }
