@@ -108,9 +108,11 @@ function patchCurrencies() {
 
 /** Removes the currency converter from the given character sheet. */
 function removeConvertCurrency(html) {
-    html.find('[class="currency-item convert"]').remove();
-    html.find('[data-action="convertCurrency"]').remove();
-    html.find('[title="Convert Currency"]').remove();
+    html.find('[class="currency-item convert"]')?.remove();
+    html.find('[data-action="convertCurrency"]')?.remove();
+    html.find('[title="Convert Currency"]')?.remove();
+    // tidy-sheet
+    html.find('[class="currency-item convert svelte-52d1bs"]')?.remove();
     // D&D5e 3.0
     html.find(`[class="currency"]`)?.find(`[class="item-action unbutton"]`)?.remove();
 }
