@@ -81,44 +81,43 @@ function removeConvertCurrency(html) {
     html.find('[class="currency-item convert"]').remove();
     html.find('[data-action="convertCurrency"]').remove();
     html.find('[title="Convert Currency"]').remove();
+    // D&D5e 3.0
+    html.find(`[class="currency"]`)?.find(`[class="item-action unbutton"]`)?.remove();
 }
 
-/** Removes specific currencies from character sheet */
-function removeCurrencyCp(html) {
-    html.find('[class="currency-item cp"]').remove();
-    html.find('[class="denomination cp"]').remove();
-    html.find('[name="system.currency.cp"]').remove();
+/** Removes specified currency from character sheet */
+function removeCurrency(html, currency) {
+  html.find(`[class="currency-item ${currency}"]`)?.remove();
+  html.find(`[class="denomination ${currency}"]`)?.remove();
+  html.find(`[name="system.currency.${currency}"]`)?.remove();
+  // tidy-sheet
+  html.find(`[class="currency-item ${currency} svelte-52d1bs"]`)?.remove();
+  // d&d5e 3.0
+  html.find(`[class="currency ${currency}"]`)?.remove();
 }
 
-function removeCurrencySp(html) {
-    html.find('[class="currency-item sp"]').remove();
-    html.find('[class="denomination sp"]').remove();
-    html.find('[name="system.currency.sp"]').remove();
-}
-
-function removeCurrencyEp(html) {
-    html.find('[class="currency-item ep"]').remove();
-    html.find('[class="denomination ep"]').remove();
-    html.find('[name="system.currency.ep"]').remove();
-}
-
-function removeCurrencyGp(html) {
-    html.find('[class="currency-item gp"]').remove();
-    html.find('[class="denomination gp"]').remove();
-    html.find('[name="system.currency.gp"]').remove();
-}
-
-function removeCurrencyPp(html) {
-    html.find('[class="currency-item pp"]').remove();
-    html.find('[class="denomination pp"]').remove();
-    html.find('[name="system.currency.pp"]').remove();
+function removeCurrencies(html) {
+	if (game.settings.get("world-currency-5e", "RemoveConverter")) {
+		removeConvertCurrency(html);
+	}
+	if (game.settings.get("world-currency-5e", "cpAltRemove")) {
+		removeCurrency(html, "cp");
+	}
+	if (game.settings.get("world-currency-5e", "spAltRemove")) {
+		removeCurrency(html, "sp");
+	}
+	if (game.settings.get("world-currency-5e", "epAltRemove")) {
+		removeCurrency(html, "ep");
+	}
+	if (game.settings.get("world-currency-5e", "gpAltRemove")) {
+		removeCurrency(html, "gp");
+	}
+	if (game.settings.get("world-currency-5e", "ppAltRemove")) {
+		removeCurrency(html, "pp");
+	}
 }
 
 export { getCurrencySettings,
          patchCurrencies,
          removeConvertCurrency,
-         removeCurrencyCp,
-         removeCurrencySp,
-         removeCurrencyEp,
-         removeCurrencyGp,
-         removeCurrencyPp,};
+         removeCurrencies,};
