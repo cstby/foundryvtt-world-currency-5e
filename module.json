@@ -1,44 +1,44 @@
 {
-  "name": "world-currency-5e",
-  "title": "World Currency 5e",
-  "description": "Use currencies unique to your world in D&D 5E.",
-  "authors": [{ "name": "cstby" }],
-  "version": "2.0.3",
-  "library": "false",
-  "compatibility": {
-    "minimum": "10",
-    "verified": "11.315"
-  },
-  "conflicts": [],
-  "esmodules": ["scripts/main.js"],
-  "scripts": [],
-  "styles": [],
-  "languages": [
-    {
-      "lang": "en",
-      "name": "English",
-      "path": "languages/en.json"
-    }
-  ],
-  "relationships": {
-    "systems": [
-      {
-        "id": "dnd5e",
-        "type": "system",
-        "compatibility": {
-          "minimum": "2.0.3",
-          "verified": "3.0.3"
+    "name": "world-currency-5e",
+    "title": "World Currency 5e",
+    "description": "Use currencies unique to your world in D&D 5E.",
+    "authors": [{ "name": "cstby" }],
+    "version": "2.0.3",
+    "library": "false",
+    "compatibility": {
+        "minimum": "10",
+        "verified": "11.315"
+    },
+    "conflicts": [],
+    "esmodules": ["scripts/main.js"],
+    "scripts": [],
+    "styles": [],
+    "languages": [
+        {
+            "lang": "en",
+            "name": "English",
+            "path": "languages/en.json"
         }
-      }
+    ],
+    "relationships": {
+        "systems": [
+            {
+                "id": "dnd5e",
+                "type": "system",
+                "compatibility": {
+                    "minimum": "2.0.3",
+                    "verified": "3.0.3"
+                }
+            }
+        ]
+    },
+    "url": "https://github.com/cstby/foundryvtt-world-currency-5e",
+    "manifest": "https://raw.githubusercontent.com/cstby/foundryvtt-world-currency-5e/master/module.json",
+    "download": "https://github.com/cstby/foundryvtt-world-currency-5e/archive/master.zip",
+    "media": [
+        {
+            "type": "icon",
+            "url": "https://avatars2.githubusercontent.com/u/71292812?s=400&u=ccdb4eeb7abf551ca8f314e5a9bfd0479a4d3d41&v=4"
+        }
     ]
-  },
-  "url": "https://github.com/cstby/foundryvtt-world-currency-5e",
-  "manifest": "https://raw.githubusercontent.com/cstby/foundryvtt-world-currency-5e/master/module.json",
-  "download": "https://github.com/cstby/foundryvtt-world-currency-5e/archive/master.zip",
-  "media": [
-    {
-      "type": "icon",
-      "url": "https://avatars2.githubusercontent.com/u/71292812?s=400&u=ccdb4eeb7abf551ca8f314e5a9bfd0479a4d3d41&v=4"
-    }
-  ]
 }
