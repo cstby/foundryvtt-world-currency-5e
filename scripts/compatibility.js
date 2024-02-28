@@ -2,23 +2,31 @@
  * Compatibility with other modules.
  */
 
-import { getCurrencySettings } from "./world-currency-5e.js";
+import { getCurrencySettings, ALT_ABRV, ALT } from "./world-currency-5e.js";
 
-/** Alters currency names on the given character sheet. */
+function changeText(currency, altAbrv) {
+    html.find(`[class="denomination ${currency}"]`).text(getCurrencySettings()[altAbrv]);
+}
+
+function swapDnd5eIcon(currency, altAbrv) {
+    html.find(`[class="currency ${currency}"]`)
+        ?.removeClass(currency)
+        ?.addClass(` ${getCurrencySettings()[altAbrv].toLowerCase()}`);
+}
+
+/** Alters currency on the given character sheet. */
 function alterCharacterCurrency(html) {
-    let altNames = getCurrencySettings();
+    changeText(html, "pp", ALT_ABRV.PP);
+    changeText(html, "gp", ALT_ABRV.GP);
+    changeText(html, "ep", ALT_ABRV.EP);
+    changeText(html, "sp", ALT_ABRV.SP);
+    changeText(html, "cp", ALT_ABRV.CP);
 
-    html.find('[class="denomination pp"]').text(altNames["ppAltAbrv"]);
-    html.find('[class="denomination gp"]').text(altNames["gpAltAbrv"]);
-    html.find('[class="denomination ep"]').text(altNames["epAltAbrv"]);
-    html.find('[class="denomination sp"]').text(altNames["spAltAbrv"]);
-    html.find('[class="denomination cp"]').text(altNames["cpAltAbrv"]);
-
-    html.find('[class="currency cp"]')?.removeClass("cp")?.addClass(` ${altNames["cpAltAbrv"].toLowerCase()}`);
-    html.find('[class="currency sp"]')?.removeClass("sp")?.addClass(` ${altNames["spAltAbrv"].toLowerCase()}`);
-    html.find('[class="currency ep"]')?.removeClass("ep")?.addClass(` ${altNames["epAltAbrv"].toLowerCase()}`);
-    html.find('[class="currency gp"]')?.removeClass("gp")?.addClass(` ${altNames["gpAltAbrv"].toLowerCase()}`);
-    html.find('[class="currency pp"]')?.removeClass("pp")?.addClass(` ${altNames["ppAltAbrv"].toLowerCase()}`);
+    swapDnd5eIcon(html, "cp", ALT_ABRV.CP);
+    swapDnd5eIcon(html, "sp", ALT_ABRV.SP);
+    swapDnd5eIcon(html, "ep", ALT_ABRV.EP);
+    swapDnd5eIcon(html, "gp", ALT_ABRV.GP);
+    swapDnd5eIcon(html, "pp", ALT_ABRV.PP);
 }
 
 // Compatibility: Let's Trade 5E
@@ -56,12 +64,12 @@ function alterPartyOverviewWindowCurrency(html) {
     let altNames = getCurrencySettings();
 
     const currencies = html.find('div[data-tab="currencies"] div.table-row.header div.text.icon');
-    $(currencies[0]).text(altNames["ppAlt"]);
-    $(currencies[1]).text(altNames["gpAlt"]);
-    $(currencies[2]).text(altNames["epAlt"]);
-    $(currencies[3]).text(altNames["spAlt"]);
-    $(currencies[4]).text(altNames["cpAlt"]);
-    $(currencies[5]).text(`${altNames["gpAlt"]} (${game.i18n.localize("party-overview.TOTAL")})`);
+    $(currencies[0]).text(altNames[ALT.PP]);
+    $(currencies[1]).text(altNames[ALT.GP]);
+    $(currencies[2]).text(altNames[ALT.EP]);
+    $(currencies[3]).text(altNames[ALT.SP]);
+    $(currencies[4]).text(altNames[ALT.CP]);
+    $(currencies[5]).text(`${altNames[ALT.GP]} (${game.i18n.localize("party-overview.TOTAL")})`);
 }
 
 export { alterCharacterCurrency, alterTradeDialogCurrency, alterTradeWindowCurrency, alterPartyOverviewWindowCurrency };
