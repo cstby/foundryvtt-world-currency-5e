@@ -2,29 +2,59 @@
  * Core functions for patching currencies configuration.
  */
 
+const WORLD_CURRENCY_5E = "world-currency-5e";
+const CONVERT = {
+    CP: "cpConvert",
+    SP: "spConvert",
+    EP: "epConvert",
+    GP: "gpConvert",
+    PP: "ppConvert",
+};
+const ALT_REMOVE = {
+    CP: "cpAltRemove",
+    SP: "spAltRemove",
+    EP: "epAltRemove",
+    GP: "gpAltRemove",
+    PP: "ppAltRemove",
+};
+const ALT = {
+    CP: "cpAlt",
+    SP: "spAlt",
+    EP: "epAlt",
+    GP: "gpAlt",
+    PP: "ppAlt",
+};
+const ALT_ABRV = {
+    CP: "cpAltAbrv",
+    SP: "spAltAbrv",
+    EP: "epAltAbrv",
+    GP: "gpAltAbrv",
+    PP: "ppAltAbrv",
+};
+
 /** Gets the currencies specified by the user and returns them as an object.*/
 function getCurrencySettings() {
     return {
-        cpConvert: game.settings.get("world-currency-5e", "cpConvert"),
-        spConvert: game.settings.get("world-currency-5e", "spConvert"),
-        epConvert: game.settings.get("world-currency-5e", "epConvert"),
-        gpConvert: game.settings.get("world-currency-5e", "gpConvert"),
-        ppConvert: game.settings.get("world-currency-5e", "ppConvert"),
-        cpAltRemove: game.settings.get("world-currency-5e", "cpAltRemove"),
-        spAltRemove: game.settings.get("world-currency-5e", "spAltRemove"),
-        epAltRemove: game.settings.get("world-currency-5e", "epAltRemove"),
-        gpAltRemove: game.settings.get("world-currency-5e", "gpAltRemove"),
-        ppAltRemove: game.settings.get("world-currency-5e", "ppAltRemove"),
-        cpAlt: game.settings.get("world-currency-5e", "cpAlt"),
-        spAlt: game.settings.get("world-currency-5e", "spAlt"),
-        epAlt: game.settings.get("world-currency-5e", "epAlt"),
-        gpAlt: game.settings.get("world-currency-5e", "gpAlt"),
-        ppAlt: game.settings.get("world-currency-5e", "ppAlt"),
-        cpAltAbrv: game.settings.get("world-currency-5e", "cpAltAbrv"),
-        spAltAbrv: game.settings.get("world-currency-5e", "spAltAbrv"),
-        epAltAbrv: game.settings.get("world-currency-5e", "epAltAbrv"),
-        gpAltAbrv: game.settings.get("world-currency-5e", "gpAltAbrv"),
-        ppAltAbrv: game.settings.get("world-currency-5e", "ppAltAbrv"),
+        cpConvert: game.settings.get(WORLD_CURRENCY_5E, CONVERT.CP),
+        spConvert: game.settings.get(WORLD_CURRENCY_5E, CONVERT.SP),
+        epConvert: game.settings.get(WORLD_CURRENCY_5E, CONVERT.EP),
+        gpConvert: game.settings.get(WORLD_CURRENCY_5E, CONVERT.GP),
+        ppConvert: game.settings.get(WORLD_CURRENCY_5E, CONVERT.PP),
+        cpAltRemove: game.settings.get(WORLD_CURRENCY_5E, ALT_REMOVE.CP),
+        spAltRemove: game.settings.get(WORLD_CURRENCY_5E, ALT_REMOVE.SP),
+        epAltRemove: game.settings.get(WORLD_CURRENCY_5E, ALT_REMOVE.EP),
+        gpAltRemove: game.settings.get(WORLD_CURRENCY_5E, ALT_REMOVE.GP),
+        ppAltRemove: game.settings.get(WORLD_CURRENCY_5E, ALT_REMOVE.PP),
+        cpAlt: game.settings.get(WORLD_CURRENCY_5E, ALT.CP),
+        spAlt: game.settings.get(WORLD_CURRENCY_5E, ALT.SP),
+        epAlt: game.settings.get(WORLD_CURRENCY_5E, ALT.EP),
+        gpAlt: game.settings.get(WORLD_CURRENCY_5E, ALT.GP),
+        ppAlt: game.settings.get(WORLD_CURRENCY_5E, ALT.PP),
+        cpAltAbrv: game.settings.get(WORLD_CURRENCY_5E, ALT_ABRV.CP),
+        spAltAbrv: game.settings.get(WORLD_CURRENCY_5E, ALT_ABRV.SP),
+        epAltAbrv: game.settings.get(WORLD_CURRENCY_5E, ALT_ABRV.EP),
+        gpAltAbrv: game.settings.get(WORLD_CURRENCY_5E, ALT_ABRV.GP),
+        ppAltAbrv: game.settings.get(WORLD_CURRENCY_5E, ALT_ABRV.PP),
     };
 }
 
@@ -32,44 +62,44 @@ function getCurrencySettings() {
 function patchCurrencies() {
     let currencySettings = getCurrencySettings();
 
-    game.i18n.translations.DND5E.CurrencyPP = currencySettings["ppAlt"];
-    game.i18n.translations.DND5E.CurrencyGP = currencySettings["gpAlt"];
-    game.i18n.translations.DND5E.CurrencyEP = currencySettings["epAlt"];
-    game.i18n.translations.DND5E.CurrencySP = currencySettings["spAlt"];
-    game.i18n.translations.DND5E.CurrencyCP = currencySettings["cpAlt"];
+    game.i18n.translations.DND5E.CurrencyPP = currencySettings[ALT.PP];
+    game.i18n.translations.DND5E.CurrencyGP = currencySettings[ALT.GP];
+    game.i18n.translations.DND5E.CurrencyEP = currencySettings[ALT.EP];
+    game.i18n.translations.DND5E.CurrencySP = currencySettings[ALT.SP];
+    game.i18n.translations.DND5E.CurrencyCP = currencySettings[ALT.CP];
 
-    game.i18n.translations.DND5E.CurrencyAbbrPP = currencySettings["ppAltAbrv"];
-    game.i18n.translations.DND5E.CurrencyAbbrGP = currencySettings["gpAltAbrv"];
-    game.i18n.translations.DND5E.CurrencyAbbrEP = currencySettings["epAltAbrv"];
-    game.i18n.translations.DND5E.CurrencyAbbrSP = currencySettings["spAltAbrv"];
-    game.i18n.translations.DND5E.CurrencyAbbrCP = currencySettings["cpAltAbrv"];
+    game.i18n.translations.DND5E.CurrencyAbbrPP = currencySettings[ALT_ABRV.PP];
+    game.i18n.translations.DND5E.CurrencyAbbrGP = currencySettings[ALT_ABRV.GP];
+    game.i18n.translations.DND5E.CurrencyAbbrEP = currencySettings[ALT_ABRV.EP];
+    game.i18n.translations.DND5E.CurrencyAbbrSP = currencySettings[ALT_ABRV.SP];
+    game.i18n.translations.DND5E.CurrencyAbbrCP = currencySettings[ALT_ABRV.CP];
 
     CONFIG.DND5E.currencies = {
         pp: {
-            label: currencySettings["ppAlt"],
-            abbreviation: currencySettings["ppAltAbrv"],
-            conversion: currencySettings["ppConvert"],
+            label: currencySettings[ALT.PP],
+            abbreviation: currencySettings[ALT_ABRV.PP],
+            conversion: currencySettings[CONVERT.PP],
         },
         gp: {
-            label: currencySettings["gpAlt"],
-            abbreviation: currencySettings["gpAltAbrv"],
+            label: currencySettings[ALT.GP],
+            abbreviation: currencySettings[ALT_ABRV.GP],
             // Added explicit rates for easier conversion later. (see gpToStandard below.)
-            conversion: currencySettings["gpConvert"],
+            conversion: currencySettings[CONVERT.GP],
         },
         ep: {
-            label: currencySettings["epAlt"],
-            abbreviation: currencySettings["epAltAbrv"],
-            conversion: currencySettings["epConvert"],
+            label: currencySettings[ALT.EP],
+            abbreviation: currencySettings[ALT_ABRV.EP],
+            conversion: currencySettings[CONVERT.EP],
         },
         sp: {
-            label: currencySettings["spAlt"],
-            abbreviation: currencySettings["spAltAbrv"],
-            conversion: currencySettings["spConvert"],
+            label: currencySettings[ALT.SP],
+            abbreviation: currencySettings[ALT_ABRV.SP],
+            conversion: currencySettings[CONVERT.SP],
         },
         cp: {
-            label: currencySettings["cpAlt"],
-            abbreviation: currencySettings["cpAltAbrv"],
-            conversion: currencySettings["cpConvert"],
+            label: currencySettings[ALT.CP],
+            abbreviation: currencySettings[ALT_ABRV.CP],
+            conversion: currencySettings[CONVERT.CP],
         },
     };
 
@@ -97,24 +127,34 @@ function removeCurrency(html, currency) {
 }
 
 function removeCurrencies(html) {
-    if (game.settings.get("world-currency-5e", "RemoveConverter")) {
+    if (game.settings.get(WORLD_CURRENCY_5E, "RemoveConverter")) {
         removeConvertCurrency(html);
     }
-    if (game.settings.get("world-currency-5e", "cpAltRemove")) {
+    if (game.settings.get(WORLD_CURRENCY_5E, ALT_REMOVE.CP)) {
         removeCurrency(html, "cp");
     }
-    if (game.settings.get("world-currency-5e", "spAltRemove")) {
+    if (game.settings.get(WORLD_CURRENCY_5E, ALT_REMOVE.SP)) {
         removeCurrency(html, "sp");
     }
-    if (game.settings.get("world-currency-5e", "epAltRemove")) {
+    if (game.settings.get(WORLD_CURRENCY_5E, ALT_REMOVE.EP)) {
         removeCurrency(html, "ep");
     }
-    if (game.settings.get("world-currency-5e", "gpAltRemove")) {
+    if (game.settings.get(WORLD_CURRENCY_5E, ALT_REMOVE.GP)) {
         removeCurrency(html, "gp");
     }
-    if (game.settings.get("world-currency-5e", "ppAltRemove")) {
+    if (game.settings.get(WORLD_CURRENCY_5E, ALT_REMOVE.PP)) {
         removeCurrency(html, "pp");
     }
 }
 
-export { getCurrencySettings, patchCurrencies, removeConvertCurrency, removeCurrencies };
+export {
+    getCurrencySettings,
+    patchCurrencies,
+    removeConvertCurrency,
+    removeCurrencies,
+    WORLD_CURRENCY_5E,
+    ALT_REMOVE,
+    ALT,
+    CONVERT,
+    ALT_ABRV,
+};
